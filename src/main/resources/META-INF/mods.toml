@@ -1,0 +1,35 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="[31,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+[[mods]] #mandatory
+
+modId="ndc" #mandatory
+
+version="1.15.2-1.0.0" #mandatory
+
+displayName="No Default Chat" #mandatory
+
+displayURL="http://github.com/SantioMC/NoDefaultChat" #optional
+
+authors="Santio71" #optional
+
+description='''
+This is a very simple mod to disable default players on Minehut
+from appearing on your screen allowing for easier conversation with
+donators.
+
+Notice: If you are a default, your message WILL NOT show up.
+
+Toggle this mod by running "-toggle" in chat.
+
+This mod may impact chat on other servers. Please make sure you toggle this mod off when going to
+other player servers!
+'''
+
+[[dependencies.ndc]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"
