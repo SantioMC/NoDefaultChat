@@ -45,6 +45,7 @@ public class NoDefaultChat {
             if (!ON_MINEHUT) return;
             if (!message.startsWith("[")) {
                 if (message.startsWith("From ") || message.startsWith("To ")) return; // Allow messages to appear.
+                if (message.startsWith(" - ")) return; // Allows friend list to show up correctly.
                 event.setCanceled(true);
             }
         }
