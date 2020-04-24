@@ -1,6 +1,7 @@
 package me.santio.nodefaultchat;
 
 import me.santio.nodefaultchat.util.PlayerManager;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,17 +33,18 @@ public class NoDefaultChat {
 
     @SubscribeEvent
     public void onChatRecieved(ClientChatReceivedEvent event) {
-        if (event.getMessage().getSiblings().get(0).getFormattedText().contains(" or move to enable chat.")) {
+        String message = StringUtils.stripControlCodes(event.getMessage().getFormattedText());
+        if (message.endsWith(" or move to enable chat.")) {
             ON_MINEHUT = true;
             PlayerManager.send("Default chat is currently " + (ENABLED ? "disabled" : "enabled") + ". Toggle this by using -toggle");
-        } else if (event.getMessage().getSiblings().get(0).getFormattedText().contains("Sending you")) {
+        } else if (message.startsWith("Sending you to")) {
             ON_MINEHUT = false;
             PlayerManager.send("You have disconnected from Minehut lobbies.. Mod is now disabled.");
         } else {
-            String name = event.getMessage().getSiblings().get(0).getFormattedText();
             if (!ENABLED) return;
             if (!ON_MINEHUT) return;
-            if (!name.contains("[")) {
+            if (!message.startsWith("[")) {
+                if (message.startsWith("From ") || message.startsWith("To ")) return; // Allow messages to appear.
                 event.setCanceled(true);
             }
         }
